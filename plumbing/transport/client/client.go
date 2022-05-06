@@ -8,11 +8,11 @@ import (
 	"fmt"
 	gohttp "net/http"
 
-	"github.com/go-git/go-git/v5/plumbing/transport"
-	"github.com/go-git/go-git/v5/plumbing/transport/file"
-	"github.com/go-git/go-git/v5/plumbing/transport/git"
-	"github.com/go-git/go-git/v5/plumbing/transport/http"
-	"github.com/go-git/go-git/v5/plumbing/transport/ssh"
+	"github.com/getbread/go-git/v5/plumbing/transport"
+	"github.com/getbread/go-git/v5/plumbing/transport/file"
+	"github.com/getbread/go-git/v5/plumbing/transport/git"
+	"github.com/getbread/go-git/v5/plumbing/transport/http"
+	"github.com/getbread/go-git/v5/plumbing/transport/ssh"
 )
 
 // Protocols are the protocols supported by default.
