@@ -8,6 +8,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/go-git/go-billy/v5/osfs"
+
 	"github.com/getbread/go-git/v5/config"
 	"github.com/getbread/go-git/v5/internal/url"
 	"github.com/getbread/go-git/v5/plumbing"
@@ -25,7 +27,6 @@ import (
 	"github.com/getbread/go-git/v5/storage/filesystem"
 	"github.com/getbread/go-git/v5/storage/memory"
 	"github.com/getbread/go-git/v5/utils/ioutil"
-	"github.com/go-git/go-billy/v5/osfs"
 )
 
 var (
@@ -456,7 +457,7 @@ func (r *Remote) fetch(ctx context.Context, o *FetchOptions) (sto storer.Referen
 	req.Wants, err = getWants(r.s, refs)
 	if len(req.Wants) > 0 {
 		req.Haves, err = getHaves(localRefs, remoteRefs, r.s)
-		if err != nil && err != plumbing.ErrObjectNotFound {
+		if err != nil {
 			return nil, err
 		}
 
@@ -895,6 +896,10 @@ func getHaves(
 		}
 
 		err = getHavesFromRef(ref, remoteRefs, s, haves)
+		if err == plumbing.ErrObjectNotFound {
+			continue
+		}
+
 		if err != nil {
 			return nil, err
 		}
